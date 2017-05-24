@@ -2,11 +2,13 @@ import React from 'react';
 class AllDrivers extends React.Component {
     constructor(props) {
     super(props);
-
-    this.state = {
-      trips: []
-    };
+    this.state = {trips: []};
+    this.bookRide = this.bookRide.bind(this);
   }
+
+bookRide() {
+  console.log("hello")
+}
   componentDidMount() {
     $.get('http://localhost:3000/allDrivers').then(function(trips){
       console.log("setting state: ", trips)

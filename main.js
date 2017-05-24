@@ -9,7 +9,6 @@ import RiderForm from './components/RiderForm.jsx';
 import AllDrivers from './components/AllDrivers.jsx';
 import App from './components/App.js';
 
-
 // child clone in react router in order to pass state?
 // below in the future you can nest componets inside other "routes". with react router client react-router makes app a SPA app
 // and does not make calls to the server to serve up other routes. it's already on client. 
@@ -17,7 +16,7 @@ import App from './components/App.js';
 //components
 ReactDOM.render((
    <Router history = {browserHistory}>
-      <Route path = "/" component = {App}>
+      <Route path = "/" component = {AllDrivers}>
       <Route path = "/alldrivers" component = {AllDrivers}/>
         <IndexRoute component= {AppLogin} />
         <Route path = "/signup" component = {Signup} />
