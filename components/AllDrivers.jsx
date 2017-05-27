@@ -1,4 +1,6 @@
 import React from 'react';
+import Ride from './Ride.jsx';
+import {browserHistory } from 'react-router'
 class AllDrivers extends React.Component {
     constructor(props) {
     super(props);
@@ -7,29 +9,24 @@ class AllDrivers extends React.Component {
   }
 
 bookRide() {
-  console.log("hello")
+  alert("You booked the ride!");
+  browserHistory.push('home');
 }
   componentDidMount() {
     $.get('http://localhost:3000/allDrivers').then(function(trips){
-      console.log("setting state: ", trips)
       this.setState({trips});
-      console.log("after state set", this.state)
     }.bind(this))
   }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+        children: nextProps.children
+    });
+}
   render() {
     const drivers = [];
     this.state.trips.forEach(function(driver, index) {
-      drivers.push(
-      <div className="driver-div" key={index}>
-        <h3>Email: {driver.email}</h3>
-        <h3>Start: {driver.origin}</h3>
-        <h3>End: {driver.destination}</h3>
-        <h3>When: {driver.date}</h3>
-        <h3>Seats: {driver.seats}</h3>
-        <button>book trip</button>
-      </div>
-      )
-    })
+      drivers.push(<Ride bookRide={this.bookRide} key={index} driver={driver}/>)
+    }.bind(this))
     
     return (
       <div className="allDriversMain">

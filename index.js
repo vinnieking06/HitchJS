@@ -96,10 +96,10 @@
 	  { history: _reactRouter.browserHistory },
 	  _react2.default.createElement(
 	    _reactRouter.Route,
-	    { path: '/', component: _App2.default },
+	    { path: '/', component: _AllDrivers2.default },
+	    _react2.default.createElement(_reactRouter.Route, { path: '/alldrivers', component: _AllDrivers2.default }),
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _AppLogin2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/signup', component: _signup2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/allrides', component: _AllDrivers2.default }),
 	    _react2.default.createElement(
 	      _reactRouter.Route,
 	      { path: '/roleselector', component: _RoleSelector2.default },
@@ -28083,6 +28083,13 @@
 	            ),
 	            _react2.default.createElement(
 	              'button',
+	              { type: 'button', onClick: function onClick() {
+	                  _reactRouter.browserHistory.push('alldrivers');console.log(_reactRouter.browserHistory);
+	                } },
+	              'All Drivers'
+	            ),
+	            _react2.default.createElement(
+	              'button',
 	              { type: 'submit' },
 	              'Forgot Password?'
 	            )
@@ -28330,19 +28337,94 @@
 	var AllDrivers = function (_React$Component) {
 	  _inherits(AllDrivers, _React$Component);
 
-	  function AllDrivers() {
+	  function AllDrivers(props) {
 	    _classCallCheck(this, AllDrivers);
 
-	    return _possibleConstructorReturn(this, (AllDrivers.__proto__ || Object.getPrototypeOf(AllDrivers)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (AllDrivers.__proto__ || Object.getPrototypeOf(AllDrivers)).call(this, props));
+
+	    _this.state = { trips: [] };
+	    _this.bookRide = _this.bookRide.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(AllDrivers, [{
+	    key: 'bookRide',
+	    value: function bookRide() {
+	      console.log("hello");
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      $.get('http://localhost:3000/allDrivers').then(function (trips) {
+	        console.log("setting state: ", trips);
+	        this.setState({ trips: trips });
+	        console.log("after state set", this.state);
+	      }.bind(this));
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var drivers = [];
+	      this.state.trips.forEach(function (driver, index) {
+	        drivers.push(_react2.default.createElement(
+	          'div',
+	          { className: 'driver-div', key: index },
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Email: ',
+	            driver.email
+	          ),
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Start: ',
+	            driver.origin
+	          ),
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'End: ',
+	            driver.destination
+	          ),
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'When: ',
+	            driver.date
+	          ),
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Seats: ',
+	            driver.seats
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            null,
+	            'book trip'
+	          )
+	        ));
+	      });
+
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        'hello'
+	        { className: 'allDriversMain' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          'All Trips'
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'Select a trip and enjoy the ride!'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'driver-parent-div' },
+	          drivers
+	        )
 	      );
 	    }
 	  }]);

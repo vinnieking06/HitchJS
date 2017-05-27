@@ -6,6 +6,7 @@ import DriverForm from './components/DriverForm.jsx';
 import AppLogin from './components/AppLogin.jsx';
 import Signup from './components/signup.jsx';
 import RiderForm from './components/RiderForm.jsx';
+import Home from './components/Home.jsx';
 import AllDrivers from './components/AllDrivers.jsx';
 import App from './components/App.js';
 
@@ -16,11 +17,14 @@ import App from './components/App.js';
 //components
 ReactDOM.render((
    <Router history = {browserHistory}>
-      <Route path = "/" component = {AllDrivers}>
-      <Route path = "/alldrivers" component = {AllDrivers}/>
+      <Route path = "/" component = {RoleSelector}>
+        <Route path = "/alldrivers" component = {AllDrivers}/>
+        <Route path = "/home" component = {Home}/>
+
         <IndexRoute component= {AppLogin} />
         <Route path = "/signup" component = {Signup} />
         <Route path = "/roleselector" component = {RoleSelector}>
+        
 
           <Route path = "/driver" component = {DriverForm}/>
           <Route path = "/rider" component = {RiderForm}/>

@@ -30,7 +30,6 @@
 
 body {
   background-image: url('http://cdn.paper4pc.com/images/landscapes-roads-wallpaper-4.jpg');
-  background-size: cover;
 }
 
 .rider2 {
@@ -133,6 +132,7 @@ body {
   border-radius: 5px;
   width: 25%;
   margin: 3px;
+  word-wrap: break-word
 }
 
 .driver-parent-div {
